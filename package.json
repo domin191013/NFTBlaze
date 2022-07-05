@@ -4,7 +4,11 @@
   "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy721": "npx hardhat run scripts/deploy721.ts",
+    "deploy_market": "npx hardhat run scripts/deploy_market.ts",
+    "test_market": "npx hardhat run scripts/test_market.ts",
+    "test_library": "npx hardhat run scripts/test_library.ts"
   },
   "repository": {
     "type": "git",
@@ -48,5 +52,8 @@
     "ts-node": "^10.8.0",
     "typechain": "^5.2.0",
     "typescript": "^4.7.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.6.0"
   }
 }

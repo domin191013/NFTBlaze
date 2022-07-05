@@ -3,7 +3,23 @@
 //
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
-import { ethers } from "hardhat";
+import { ethers, run } from "hardhat";
+
+const verifyContract = async (contract: any) => {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 15000);
+  });
+
+  try {
+    await run("verify:verify", {
+      address: contract.address,
+      constructorArguments: [],
+    });
+    console.log("Contract verified");
+  } catch (e) {
+    console.log("Contract verification error occurred : ", e);
+  }
+};
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -14,12 +30,13 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const TestERC721 = await ethers.getContractFactory("TestERC721");
+  const contract = await TestERC721.deploy();
 
-  await greeter.deployed();
+  await contract.deployed();
+  console.log("TestErc721 deployed to:", contract.address);
 
-  console.log("Greeter deployed to:", greeter.address);
+  await verifyContract(contract);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
